@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-  Optional<Reservation> findById(Long id); //todo
+  Optional<Reservation> findById(Long id);
 
   Collection<Reservation> findByProjectorId(Long id); //this one is fine
 

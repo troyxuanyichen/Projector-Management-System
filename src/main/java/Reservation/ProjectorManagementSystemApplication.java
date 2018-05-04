@@ -9,11 +9,24 @@ import java.util.Calendar;
 import java.util.Date;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+@Controller
+@EnableAutoConfiguration
 @SpringBootApplication
 public class ProjectorManagementSystemApplication {
+
+  @RequestMapping("/")
+  @ResponseBody
+  String home() {
+    System.out.println("hehe");
+    return "Hello World!";
+  }
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectorManagementSystemApplication.class, args);

@@ -30,7 +30,7 @@ public class Projector {
    * about why use final here, see
    * http://web.archive.org/web/20110623124823/http://renaud.waldura.com/doc/java/final-keyword.shtml
    */
-  public Projector(final int id) {
+  public Projector(final Integer id) {
     this.id = id;
   }
 

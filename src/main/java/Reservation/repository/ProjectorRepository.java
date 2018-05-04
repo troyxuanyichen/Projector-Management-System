@@ -8,5 +8,4 @@ public interface ProjectorRepository extends JpaRepository<Projector, Integer> {
 
   Optional<Projector> findById(Integer id);
 
-
 }
