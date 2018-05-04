@@ -1,4 +1,4 @@
-package pms.model;
+package Reservation.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 @Entity
 @Table(name = "projector")
@@ -16,7 +17,7 @@ public class Projector {
 
   @Id
   @Column(name = "id", unique = true)
-  private int id;
+  private Integer id;
 
   @Basic(fetch = FetchType.LAZY)
   @OneToMany(mappedBy = "projector")
@@ -33,7 +34,7 @@ public class Projector {
     this.id = id;
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 

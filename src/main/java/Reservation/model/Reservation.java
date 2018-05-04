@@ -1,6 +1,5 @@
-package pms.model;
+package Reservation.model;
 
-import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,13 +13,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * https://memorynotfound.com/hibernate-date-time-datetime-mapping/
+ */
 
 @Entity
 @Table(name = "reservation")
 public class Reservation {
 
   @Id
-  @Column(unique = true)
+  @Column(name = "reservation_id", unique = true) //use hibernate naming strategy in application.properties to fix the name
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
@@ -34,12 +36,37 @@ public class Reservation {
   private Date date;
 
   @Basic(fetch = FetchType.LAZY)
-//  @Temporal(TemporalType.TIME)
   @Column(name = "start", columnDefinition = "TIME", nullable = false)
-  private Time start;
+  private Date start;
 
   @Basic(fetch = FetchType.LAZY)
-//  @Temporal(TemporalType.TIME)
   @Column(name = "end", columnDefinition = "TIME", nullable = false)
-  private Time end;
+  private Date end;
+
+  public Reservation(final Projector projector, final Date date, final Date start, final Date end) {
+    this.projector = projector;
+    this.date = date;
+    this.start = start;
+    this.end = end;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public Projector getProjector() {
+    return projector;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public Date getStart() {
+    return start;
+  }
+
+  public Date getEnd() {
+    return end;
+  }
 }
