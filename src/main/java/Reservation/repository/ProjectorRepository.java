@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectorRepository extends JpaRepository<Projector, Integer> {
 
-//  Optional<Projector> findByProjectorId(Integer id);
+  Optional<Projector> findById(Integer id);
+
 
 }
