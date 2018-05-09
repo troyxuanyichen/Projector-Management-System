@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * https://memorynotfound.com/hibernate-date-time-datetime-mapping/
@@ -19,10 +20,11 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "reservation")
-public class Reservation {
+public class Reservation implements Comparable<Reservation> {
 
   @Id
-  @Column(name = "reservation_id", unique = true) //use hibernate naming strategy in application.properties to fix the name
+  @Column(name = "reservation_id", unique = true)
+  //use hibernate naming strategy in application.properties to fix the name
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
@@ -43,6 +45,7 @@ public class Reservation {
   @Column(name = "end", columnDefinition = "TIME", nullable = false)
   private Date end;
 
+  @Autowired
   public Reservation(final Projector projector, final Date date, final Date start, final Date end) {
     this.projector = projector;
     this.date = date;
@@ -68,5 +71,10 @@ public class Reservation {
 
   public Date getEnd() {
     return end;
+  }
+
+  @Override
+  public int compareTo(Reservation reservation) {
+    return start.before(reservation.getStart()) ? 1 : start.equals(reservation) ? 0 : -1;
   }
 }
