@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class ProjectorManagementSystemApplication {
 
-/*  @RequestMapping("/")
+  @RequestMapping("/")
   String home() {
     System.out.println("hehe");
     return "Hello World!";
-  }*/
+  }
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectorManagementSystemApplication.class, args);

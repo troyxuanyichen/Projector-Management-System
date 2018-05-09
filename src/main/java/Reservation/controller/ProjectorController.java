@@ -1,5 +1,6 @@
 package Reservation.controller;
 
+import Reservation.exception.ConflictException;
 import Reservation.model.Projector;
 import Reservation.repository.ProjectorRepository;
 import Reservation.repository.ReservationRepository;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-//@EnableAutoConfiguration
 @RequestMapping("/projector")
 public class ProjectorController {
 
@@ -38,7 +38,7 @@ public class ProjectorController {
     Optional<Projector> projector = projectorRepository.findById(projectorId);
     if (projector.isPresent()) {
       //System.out.println(projector.getClass()); //class java.util.Optional
-      return "Projector already exists, please try another id.";
+      throw new ConflictException("Projector already exists, please try another id.");
     } else {
       projectorRepository.save(new Projector(projectorId));
       System.out.println("Projector saved.");
@@ -46,9 +46,11 @@ public class ProjectorController {
     }
   }
 
-  @RequestMapping(value = "/all", method = RequestMethod.GET, consumes = "application/x-www-form-urlencoded", produces = "application/json")
+  @RequestMapping(value = "/", method = RequestMethod.GET, consumes = "application/x-www-form-urlencoded", produces = "application/json")
   public Collection<Projector> getAllProjector() {
-    Collection<Projector> projectors = projectorRepository.findAll();
+    ArrayList<Projector> projectors = new ArrayList<>(projectorRepository.findAll());
+//    System.out.println(projectors.size());
+    projectors.get(0).print();
     return projectors;
   }
 }
