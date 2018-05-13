@@ -12,8 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.criteria.CriteriaBuilder.In; //todo what is this
 
 @Entity
 @Table(name = "projector")
