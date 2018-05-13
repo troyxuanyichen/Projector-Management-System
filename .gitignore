@@ -26,3 +26,6 @@
 
 #application.properties
 /src/main/resources/application.properties
+
+#unused files
+src/main/java/Reservation/Utility/
