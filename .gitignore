@@ -29,3 +29,4 @@
 
 #unused files
 src/main/java/Reservation/Utility/
+src/main/java/Reservation/Utility/BinarySearch.java

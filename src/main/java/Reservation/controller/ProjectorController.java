@@ -1,7 +1,7 @@
 package Reservation.controller;
 
 import Reservation.model.Projector;
-import Reservation.response.ConflictException;
+import Reservation.exception.ConflictException;
 import Reservation.service.ProjectorService;
 import com.google.gson.Gson;
 import java.util.Collection;
@@ -28,8 +28,10 @@ public class ProjectorController {
 
   @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> saveProjector(int projectorId) {
-    //RequestBody here prevent spring from recognize?
-    //System.out.println(projectorId); //todo validation here
+    /*
+    RequestBody here prevent spring from recognize application/x-www-form-urlencoded
+    System.out.println(projectorId); //todo validation here
+    */
     if (projectorService.insertProjector(projectorId)) {
       return new ResponseEntity<>(gson.toJson("Projector id: " + projectorId + " saved"),
           HttpStatus.CREATED);
