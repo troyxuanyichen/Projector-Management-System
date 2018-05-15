@@ -1,6 +1,7 @@
 package Reservation.controller;
 
 import Reservation.model.Projector;
+import Reservation.model.Reservation;
 import Reservation.exception.ConflictException;
 import Reservation.exception.NotFoundException;
 import Reservation.service.ReservationService;
@@ -10,7 +11,9 @@ import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +58,15 @@ public class ReservationController {
     }
   }
 
-//  @RequestMapping(value = "")
+  @RequestMapping(value = "/{reservationId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public Reservation getReservation(@PathVariable Long reservationId) {
+    Optional<Reservation> reservation = reservationService.searchReservation(reservationId);
+    if (reservation.isPresent()) {
+      return reservation.get();
+    } else {
+      throw new NotFoundException("Reservation id not recognized.");
+    }
+  }
 
   /**
    * Search all the reservation in a day

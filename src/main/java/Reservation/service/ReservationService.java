@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Optional;
+import javax.swing.text.html.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,14 @@ public class ReservationService {
     this.reservationRepository = reservationRepository;
   }
 
+  /**
+   * Add a new reservation
+   * @param projector
+   * @param date
+   * @param start
+   * @param end
+   * @return the generated id of the reservation
+   */
   public Optional<Long> insertReservation(Projector projector, Date date, Date start, Date end) {
     //todo validation
     if (checkOverlapping(projector, date, start, end)) { //overlap
@@ -35,6 +44,10 @@ public class ReservationService {
       Reservation reservation = reservationRepository.save(new Reservation(projector,date,start,end));
       return Optional.of(reservation.getId());
     }
+  }
+
+  public Optional<Reservation> searchReservation(Long id) {
+    return reservationRepository.findById(id);
   }
 
   /**

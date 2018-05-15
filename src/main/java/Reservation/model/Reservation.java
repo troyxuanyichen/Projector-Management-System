@@ -1,5 +1,6 @@
 package Reservation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,6 +45,9 @@ public class Reservation implements Comparable<Reservation> {
   @Basic(fetch = FetchType.LAZY)
   @Column(name = "end", columnDefinition = "TIME", nullable = false)
   private Date end;
+
+  private Reservation() {
+  }
 
   @Autowired
   public Reservation(final Projector projector, final Date date, final Date start, final Date end) {

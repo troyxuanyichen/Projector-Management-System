@@ -25,10 +25,10 @@ public class Projector {
 
   @Basic(fetch = FetchType.LAZY)
   @OneToMany(mappedBy = "projector")
-  @JsonIgnore //missing will cause no default constructor for reservation
+  @JsonIgnore
   private Set<Reservation> reservations = new HashSet<>();
 
-  private Projector() {
+  private Projector() { //missing will cause no default constructor for reservation
   }
 
   /**
