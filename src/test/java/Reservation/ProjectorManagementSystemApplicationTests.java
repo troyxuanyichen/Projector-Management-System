@@ -25,30 +25,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProjectorManagementSystemApplication.class)
 //@SpringBootTest(classes = ProjectorManagementSystemApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT) //tell junit where it should get information about the Spring application under test
-//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//tell junit where it should get information about the Spring application under test
-//@AutoConfigureMockMvc //suggested by https://spring.io/guides/gs/testing-web/
+@AutoConfigureMockMvc //suggested by https://spring.io/guides/gs/testing-web/
 //@WebAppConfiguration //todo @WebAppConfiguration should only be used with @SpringBootTest when @SpringBootTest is configured with a mock web environment. Please remove @WebAppConfiguration or reconfigure @SpringBootTest.
 //@WebMvcTest(ProjectorManagementSystemApplication.class)
-@WebMvcTest
+//@WebMvcTest
 public class ProjectorManagementSystemApplicationTests {
-
-  /* */
-  /**
-   * Start the application up and listen for a connection like it would do in production, and then send an HTTP request and assert the response.
-   *//*
-  @LocalServerPort
-  private int port;
-
-  @Autowired
-  private TestRestTemplate restTemplate;
-
-  @Test
-  public void greetingShouldReturnDefaultMessage() throws Exception {
-    assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-        String.class)).contains("Hello World");
-  }*/
 
   @Autowired
   private MockMvc mockMvc;
