@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -88,7 +88,7 @@ class ProjectorControllerTest {
         .add(reservationRepository.save(new Reservation(projector, date, date, date)));
   }
 
-  @Test
+ /* @Test
   public void projectorNotFound() throws Exception {
     mockMvc.perform(post())
   }
@@ -104,5 +104,5 @@ class ProjectorControllerTest {
 
   @Test
   public void getAllProjector() throws Exception {
-  }
+  }*/
 }

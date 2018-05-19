@@ -106,9 +106,6 @@
 			<version>2.9.0</version>
 			<type>jar</type>
 		</dependency>-->
-    <!--
-    How is it possible
-    -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>

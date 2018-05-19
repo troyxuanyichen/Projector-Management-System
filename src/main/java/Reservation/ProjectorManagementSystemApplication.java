@@ -4,9 +4,11 @@ import Reservation.model.Projector;
 import Reservation.model.Reservation;
 import Reservation.repository.ProjectorRepository;
 import Reservation.repository.ReservationRepository;
+import Reservation.service.GreetingService;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,17 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@EnableAutoConfiguration
-@SpringBootApplication
+//@EnableAutoConfiguration
+@SpringBootApplication //add @Configuration(tags the class as a source of bean definitions for the application context), @EnableAutoConfiguration and @ComponentScan
 public class ProjectorManagementSystemApplication {
 
   @RequestMapping("/")
   String greeting() {
-//    System.out.println("hehe");
-    return "Hello World!";
+    return "Hello World";
   }
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 		SpringApplication.run(ProjectorManagementSystemApplication.class, args);
 	}
 
