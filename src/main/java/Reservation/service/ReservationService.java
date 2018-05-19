@@ -9,8 +9,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Optional;
-import javax.swing.text.html.Option;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,10 +30,7 @@ public class ReservationService {
 
   /**
    * Add a new reservation
-   * @param projector
-   * @param date
-   * @param start
-   * @param end
+   *
    * @return the generated id of the reservation
    */
   public Optional<Long> insertReservation(Projector projector, Date date, Date start, Date end) {
@@ -41,13 +38,45 @@ public class ReservationService {
     if (checkOverlapping(projector, date, start, end)) { //overlap
       return Optional.empty();
     } else {
-      Reservation reservation = reservationRepository.save(new Reservation(projector,date,start,end));
+      Reservation reservation = reservationRepository
+          .save(new Reservation(projector, date, start, end));
       return Optional.of(reservation.getId());
     }
   }
 
+  /**
+   * Find a reservation by reservation id
+   *
+   * @param id of the reservation
+   * @return the reservation of id as input
+   */
   public Optional<Reservation> searchReservation(Long id) {
     return reservationRepository.findById(id);
+  }
+
+  /**
+   * Delete a reservation by reservation id
+   *
+   * @param id of the reservation
+   * @return {@Optional.empty()} if no reservation found
+   * delete message otherwise
+   */
+  public Optional<String> deleteReservation(Long id) {
+    Optional<Reservation> reservation = reservationRepository.findById(id);
+    if (reservation.isPresent()) {
+      reservationRepository.delete(reservation.get());
+      return Optional.of("Reservation id: " + id + " deleted.");
+    } else {
+      return Optional.empty();
+    }
+  }
+
+  public Collection<Reservation> getAll() {
+    return reservationRepository.findAll();
+  }
+
+  public Collection<Reservation> searchByDate(Date date) {
+    return reservationRepository.findByDate(date);
   }
 
   /**
@@ -65,11 +94,6 @@ public class ReservationService {
     reservationCollection = null;
     Arrays.sort(reservationArray, Comparator.naturalOrder());
     int tmp = Arrays.binarySearch(reservationArray, start);
-    if (end.before(reservationArray[tmp].getStart())) { //no overlapping
-//      int sequenceId = reservationRepository.save(new Reservation(projector, date, start, end));
-      return false;
-    } else {
-      return true;
-    }
+    return !end.before(reservationArray[tmp].getStart()); //no overlapping
   }
 }

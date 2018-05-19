@@ -21,14 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProjectorManagementSystemApplication {
 
   @RequestMapping("/")
-  String home() {
-    System.out.println("hehe");
+  String greeting() {
+//    System.out.println("hehe");
     return "Hello World!";
   }
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectorManagementSystemApplication.class, args);
 	}
+
 	@Bean
   CommandLineRunner init(ProjectorRepository projectorRepository, ReservationRepository reservationRepository) {
 	  return (evt) -> Arrays.asList("1,2,3,4,5,6,7".split(",")).forEach(

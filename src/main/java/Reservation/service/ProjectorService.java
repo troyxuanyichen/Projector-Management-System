@@ -23,7 +23,7 @@ public class ProjectorService {
     this.reservationRepository = reservationRepository;
   }
 
-  public boolean insertProjector(int projectorId) {
+  public boolean insert(int projectorId) {
     Optional<Projector> projector = projectorRepository.findById(projectorId);
     if (projector.isPresent()) {
       return false;
@@ -34,11 +34,11 @@ public class ProjectorService {
     }
   }
 
-  public Optional<Projector> hasProjector(Integer projectorId) {
+  public Optional<Projector> has(Integer projectorId) {
     return projectorRepository.findById(projectorId);
   }
 
-  public Collection<Projector> getAllProjectors() {
+  public Collection<Projector> getAll() {
     return projectorRepository.findAll();
   }
 }

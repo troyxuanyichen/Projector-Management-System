@@ -32,7 +32,7 @@ public class ProjectorController {
     RequestBody here prevent spring from recognize application/x-www-form-urlencoded
     System.out.println(projectorId); //todo validation here
     */
-    if (projectorService.insertProjector(projectorId)) {
+    if (projectorService.insert(projectorId)) {
       return new ResponseEntity<>(gson.toJson("Projector id: " + projectorId + " saved"),
           HttpStatus.CREATED);
     } else {
@@ -42,6 +42,6 @@ public class ProjectorController {
 
   @RequestMapping(value = "/", method = RequestMethod.GET, consumes = "application/x-www-form-urlencoded", produces = MediaType.APPLICATION_JSON_VALUE)
   public Collection<Projector> getAllProjector() {
-    return projectorService.getAllProjectors();
+    return projectorService.getAll();
   }
 }
