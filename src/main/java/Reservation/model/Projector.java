@@ -12,8 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.criteria.CriteriaBuilder.In; //todo what is this
 
 @Entity
 @Table(name = "projector")
@@ -25,10 +25,10 @@ public class Projector {
 
   @Basic(fetch = FetchType.LAZY)
   @OneToMany(mappedBy = "projector")
-  @JsonIgnore //missing will cause no default constructor for reservation
+  @JsonIgnore
   private Set<Reservation> reservations = new HashSet<>();
 
-  private Projector() {
+  private Projector() { //missing will cause no default constructor for reservation
   }
 
   /**
