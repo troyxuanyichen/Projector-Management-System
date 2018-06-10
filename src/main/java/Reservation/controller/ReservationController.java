@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +33,8 @@ public class ReservationController {
 
   private static final Gson gson = new Gson();
 
-  @Autowired
   private ReservationService reservationService;
 
-  @Autowired
   private ProjectorService projectorService;
 
   @Autowired
@@ -44,7 +43,7 @@ public class ReservationController {
     this.reservationService = reservationService;
     this.projectorService = projectorService;
   }
-
+  
   /**
    * Add a new reservation
    *

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@EnableAutoConfiguration
 @SpringBootApplication //add @Configuration(tags the class as a source of bean definitions for the application context), @EnableAutoConfiguration and @ComponentScan
 public class ProjectorManagementSystemApplication {
 

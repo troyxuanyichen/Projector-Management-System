@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/projector")
 public class ProjectorController {
 
-  @Autowired
-  ProjectorService projectorService;
+  private final ProjectorService projectorService;
 
   private static final Gson gson = new Gson();
 
+  @Autowired
   public ProjectorController(ProjectorService projectorService) {
     this.projectorService = projectorService;
   }

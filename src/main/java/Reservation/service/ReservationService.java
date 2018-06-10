@@ -16,12 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
 
-  @Autowired
   private final ProjectorRepository projectorRepository;
 
-  @Autowired
   private final ReservationRepository reservationRepository;
 
+  @Autowired
   public ReservationService(ProjectorRepository projectorRepository,
       ReservationRepository reservationRepository) {
     this.projectorRepository = projectorRepository;

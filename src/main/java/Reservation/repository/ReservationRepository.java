@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder.In;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
   /**
