@@ -30,7 +30,7 @@ public class ProjectorManagementSystemApplication {
 		SpringApplication.run(ProjectorManagementSystemApplication.class, args);
 	}
 
-	/*@Bean
+	@Bean
   CommandLineRunner init(ProjectorRepository projectorRepository, ReservationRepository reservationRepository) {
 	  return (evt) -> Arrays.asList("1,2,3,4,5,6,7".split(",")).forEach(
 	      a ->{
@@ -42,5 +42,5 @@ public class ProjectorManagementSystemApplication {
           reservationRepository.save(new Reservation(projector, now, now, cal.getTime()));
         }
     );
-  }*/
+  }
 }

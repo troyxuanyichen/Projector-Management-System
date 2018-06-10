@@ -40,4 +40,8 @@ public class ProjectorService {
   public Collection<Projector> getAll() {
     return projectorRepository.findAll();
   }
+
+  public int count() {
+    return (int) projectorRepository.count();
+  }
 }
