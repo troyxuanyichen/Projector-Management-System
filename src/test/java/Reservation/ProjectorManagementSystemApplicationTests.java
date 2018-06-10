@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
 
+import Reservation.controller.GreetingController;
 import Reservation.service.GreetingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,17 +27,18 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ProjectorManagementSystemApplication.class)
-//@WebMvcTest(ProjectorManagementSystemApplication.class)
+//@SpringBootTest(classes = ProjectorManagementSystemApplication.class)
+@WebMvcTest(GreetingController.class)
 //@SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc //the full Spring application context is started
 public class ProjectorManagementSystemApplicationTests {
 
   @Autowired
   private MockMvc mockMvc;
 
-//  @Autowired
-//  private ApplicationCon
+  @Autowired
+  private GreetingController greetingController;
+
   @Test
   public void shouldReturnDefaultMessage() throws Exception {
     this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
@@ -45,5 +47,7 @@ public class ProjectorManagementSystemApplicationTests {
 
   @Test
   public void contextLoads() {
+    assertThat(greetingController)
+        .isNotNull(); //if the greeting controller is not autowired, will not pass the test
   }
 }
