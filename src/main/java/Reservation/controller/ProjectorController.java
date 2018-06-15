@@ -29,6 +29,11 @@ public class ProjectorController {
     this.projectorService = projectorService;
   }
 
+  /**
+   *
+   * @param projectorId id of the projector to be insert
+   * @return
+   */
   @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> saveProjector(int projectorId) {
     /*

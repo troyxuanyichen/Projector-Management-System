@@ -4,7 +4,6 @@ package Reservation.controller;
 import static org.junit.Assert.*;
 
 import Reservation.model.Projector;
-import Reservation.model.Reservation;
 import Reservation.repository.ProjectorRepository;
 import Reservation.repository.ReservationRepository;
 import Reservation.service.ProjectorService;
@@ -19,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -34,9 +34,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-//@WebMvcTest(ProjectorController.class)
-@SpringBootTest
-@WebAppConfiguration
+@WebMvcTest(ProjectorController.class)
+//@SpringBootTest
+//@WebAppConfiguration
+//@WebMvcTest
 public class ProjectorControllerTest { //need to be public
 
   private MediaType contentType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
@@ -45,7 +46,7 @@ public class ProjectorControllerTest { //need to be public
 
   private List<Projector> projectorList = new ArrayList<>();
 
-  private List<Reservation> reservationList = new ArrayList<>();
+//  private List<Reservation> reservationList = new ArrayList<>();
 
   private Projector projector;
 
@@ -53,20 +54,24 @@ public class ProjectorControllerTest { //need to be public
 
   private Date date = new Date();
 
+  @Autowired
   private MockMvc mockMvc;
 
   private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-  @Autowired
+//  @Autowired
+  @MockBean
   private ProjectorRepository projectorRepository;
 
-  @Autowired
+//  @Autowired
+  @MockBean
   private ProjectorService projectorService;
 
-  @Autowired
+  //need to mock reservation probably because list of reservation in projector model
+  @MockBean
   private ReservationRepository reservationRepository;
 
-  @Autowired
+  @MockBean
   private WebApplicationContext webApplicationContext;
 
   //todo
@@ -84,16 +89,16 @@ public class ProjectorControllerTest { //need to be public
 
   @Before
   public void setup() throws Exception {
-    this.mockMvc = webAppContextSetup(webApplicationContext).build();
+//    this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-    this.reservationRepository.deleteAllInBatch();
+//    this.reservationRepository.deleteAllInBatch();
     this.projectorRepository.deleteAllInBatch();
 
     this.projector = projectorRepository.save(new Projector(projectorId));
-    this.reservationList
-        .add(reservationRepository.save(new Reservation(projector, date, date, date)));
-    this.reservationList
-        .add(reservationRepository.save(new Reservation(projector, date, date, date)));
+//    this.reservationList
+//        .add(reservationRepository.save(new Reservation(projector, date, date, date)));
+//    this.reservationList
+//        .add(reservationRepository.save(new Reservation(projector, date, date, date)));
   }
 
   @Test
@@ -103,7 +108,7 @@ public class ProjectorControllerTest { //need to be public
       Projector projector = new Projector(i);
       projectorList.add(projector);
     }
-
+//    when(projectorService.batchInsert(projectorList)).thenReturn(7);
     this.mockMvc.perform(get("/projector/count"))
         .andDo(print())
         .andExpect(status().isFound())
