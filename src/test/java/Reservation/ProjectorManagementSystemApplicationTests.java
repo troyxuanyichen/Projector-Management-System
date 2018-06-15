@@ -2,13 +2,21 @@ package Reservation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import Reservation.model.Projector;
+import Reservation.model.Reservation;
 import Reservation.repository.ProjectorRepository;
 import Reservation.repository.ReservationRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -28,23 +36,15 @@ public class ProjectorManagementSystemApplicationTests {
   @Autowired
   private MockMvc mockMvc;
 
-  @MockBean
+  @Autowired
   private ProjectorRepository projectorRepository;
 
-  @MockBean
+  @Autowired
   private ReservationRepository reservationRepository;
 
   @Test
   public void shouldReturnDefaultMessage() throws Exception {
     this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
         .andExpect(content().string(containsString("Hello World")));
-  }
-
-  @Test
-  public void shouldInitProjector() throws Exception {
-//    this.mockMvc.perform(get("/projector/count")).andDo(print()).andExpect(status().isOk())
-//        .andExpect(content().string(containsString("7")));
-    this.mockMvc.perform(get("/projector/count")).andDo(print()).andExpect(status().isOk()).andReturn();
-
   }
 }

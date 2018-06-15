@@ -4,6 +4,8 @@ import Reservation.model.Projector;
 import Reservation.exception.ConflictException;
 import Reservation.service.ProjectorService;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.util.Collection;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,9 @@ public class ProjectorController {
   }
 
   @RequestMapping(value = "/count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Integer countProjector() {
-    return projectorService.count();
+  public ResponseEntity<?> countProjector() {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("Projector Count", projectorService.count());
+    return new ResponseEntity<>(gson.toJson(jsonObject), HttpStatus.FOUND);
   }
 }
