@@ -18,14 +18,18 @@ public class GreetingController {
 
   private static final Gson gson = new Gson();
 
-  @Autowired
   public GreetingController(GreetingService greetingService) {
     this.greetingService = greetingService;
   }
 
-  @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE) //must add '/' in url to reach
+ /* @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    //must add '/' in url to reach if value is "/" here
   ResponseEntity<?> greeting() {
-    return  new ResponseEntity<>(gson.toJson(greetingService.greet()),
+    return new ResponseEntity<>(gson.toJson(greetingService.greet()),
         HttpStatus.CREATED);
+  }*/
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  public String greeting() {
+    return greetingService.greet();
   }
 }

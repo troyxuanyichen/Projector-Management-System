@@ -49,7 +49,7 @@ public class ReservationController {
    *
    * @return id of the reservation
    */
-  @RequestMapping(value = "/new", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded", produces = "application/json")
+  @RequestMapping(value = "/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> addReservation(Integer projectorId, Date date, Date start, Date end) {
     Optional<Projector> projector = projectorService.has(projectorId);
     if (projector.isPresent()) {
@@ -105,7 +105,7 @@ public class ReservationController {
    * @return list of Reservation if found
    * {@code null} if no reservation found
    */
-  @RequestMapping(value = "/date", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = "application/json")
+  @RequestMapping(value = "/date", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ArrayList<Reservation> searchReservationByDate(String dateString) {
     Date date = validateDateString(dateString);
 //    Collection<Reservation> reservationList = reservationService.searchByDate(date);

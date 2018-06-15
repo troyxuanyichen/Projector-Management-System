@@ -7,6 +7,7 @@ import Reservation.model.Projector;
 import Reservation.model.Reservation;
 import Reservation.repository.ProjectorRepository;
 import Reservation.repository.ReservationRepository;
+import Reservation.service.ProjectorService;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -25,15 +27,17 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ProjectorController.class)
-//@SpringBootTest(classes = ProjectorManagementSystemApplication.class)
+//@WebMvcTest(ProjectorController.class)
+@SpringBootTest
 @WebAppConfiguration
-class ProjectorControllerTest {
+public class ProjectorControllerTest { //need to be public
 
   private MediaType contentType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
       MediaType.APPLICATION_FORM_URLENCODED.getSubtype(),
@@ -57,11 +61,15 @@ class ProjectorControllerTest {
   private ProjectorRepository projectorRepository;
 
   @Autowired
+  private ProjectorService projectorService;
+
+  @Autowired
   private ReservationRepository reservationRepository;
 
   @Autowired
   private WebApplicationContext webApplicationContext;
 
+  //todo
   @Autowired
   void setConverters(HttpMessageConverter<?>[] converters) {
 
@@ -88,6 +96,21 @@ class ProjectorControllerTest {
         .add(reservationRepository.save(new Reservation(projector, date, date, date)));
   }
 
+  @Test
+  public void shouldInitProjector() throws Exception {
+    List<Projector> projectorList = new ArrayList<>();
+    for (int i = 0; i < 7; i++) {
+      Projector projector = new Projector(i);
+      projectorList.add(projector);
+    }
+
+    this.mockMvc.perform(get("/projector/count"))
+        .andDo(print())
+        .andExpect(status().isFound())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+    //actual content type = application/json;charset=UTF-8
+//        .andReturn();
+  }
  /* @Test
   public void projectorNotFound() throws Exception {
     mockMvc.perform(post())
