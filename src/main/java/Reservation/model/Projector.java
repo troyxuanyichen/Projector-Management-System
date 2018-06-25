@@ -3,6 +3,7 @@ package Reservation.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -17,7 +18,7 @@ import javax.persistence.criteria.CriteriaBuilder.In; //todo what is this
 
 @Entity
 @Table(name = "projector")
-public class Projector {
+public class Projector implements Serializable {
 
   @Id
   @Column(name = "id", unique = true)
@@ -44,8 +45,33 @@ public class Projector {
     return id;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
   public Set<Reservation> getReservations() {
     return reservations;
+  }
+
+  public void setReservations(Set<Reservation> reservations) {
+    this.reservations = reservations;
+  }
+
+  @Override
+  public String toString() {
+    return "Projector {" +
+        "id = " + id +
+        "}";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false; //why can omit this in this
+    // .getClass()
+    Projector projector = (Projector) o;
+
+    return projector.id.equals(id);
   }
 
   public void print() {

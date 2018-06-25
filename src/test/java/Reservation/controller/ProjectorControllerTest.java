@@ -54,13 +54,15 @@ public class ProjectorControllerTest { // need to be public
 
   @MockBean private ProjectorService projectorService;
 
+  // need to mock reservation because init function in ProjectorManagementSystemApplication.class
+  // and projector has list of reservation
+  //todo decouple projector and reservation
+
   @MockBean private ProjectorRepository projectorRepository;
 
   @MockBean private ReservationService reservationService;
 
   @MockBean private ReservationRepository reservationRepository;
-
-  // need to mock reservation because init function in ProjectorManagementSystemApplication.class
 
   // todo
   /* @Autowired
@@ -76,7 +78,7 @@ public class ProjectorControllerTest { // need to be public
   }*/
 
   @Before
-  public void setup() throws Exception {
+  public void setup() {
     logger.info("---- setup ----");
     projectorList = new ArrayList<>();
     for (int i = 1; i <= 3; i += 1) {
