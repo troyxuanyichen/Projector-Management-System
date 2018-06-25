@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/projector")
 public class ProjectorController {
 
-  private final static Logger logger = Logger.getLogger(ProjectorController.class.getName());
+  private static final Logger logger = Logger.getLogger(ProjectorController.class.getName());
 
   private final ProjectorService projectorService;
 
@@ -46,25 +46,24 @@ public class ProjectorController {
   @RequestMapping(
       value = "/{pId}",
       method = RequestMethod.GET,
-      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> getProjector(@PathVariable(value = "pId") int projectorId) {
     Optional<Projector> projector = projectorService.get(projectorId);
     if (projector.isPresent()) {
-      JsonObject responseObj = new JsonObject();
-      responseObj.addProperty("Projector Count", projectorService.count());
-      return new ResponseEntity<>(gson.toJson(responseObj), HttpStatus.FOUND);
+      return new ResponseEntity<>(projector, HttpStatus.FOUND);
     } else {
-      return new ResponseEntity<>(
-          gson.toJson("Projector of id: " + projectorId + " not found!"), HttpStatus.NOT_FOUND);
+      JsonObject responseObj = new JsonObject();
+      responseObj.addProperty("message", "Projector of id: " + projectorId + " not found!");
+      return new ResponseEntity<>(gson.toJson(responseObj), HttpStatus.NOT_FOUND);
     }
   }
 
   @RequestMapping(
       value = "/new",
       method = RequestMethod.POST,
-      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> saveProjector(int projectorId) {
     /*
     RequestBody here prevent spring from recognize application/x-www-form-urlencoded
@@ -86,11 +85,12 @@ public class ProjectorController {
   @RequestMapping(
       value = "/all",
       method = RequestMethod.GET,
-//      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> getAllProjector() {
-    Collection<Projector> projectors =  projectorService.getAll();
-    if (projectors.size() == 0) {
+    Collection<Projector> projectors = projectorService.getAll();
+    //todo 5xx code
+    if (projectors == null || projectors.size() == 0) {
       logger.info("No projector found!");
       return new ResponseEntity<Collection<Projector>>(HttpStatus.NO_CONTENT);
     } else {
@@ -106,12 +106,12 @@ public class ProjectorController {
   @RequestMapping(
       value = "/count",
       method = RequestMethod.GET,
-//      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> countProjector() {
     JsonObject responseObj = new JsonObject();
     responseObj.addProperty("Projector Count", projectorService.count());
-    return new ResponseEntity<>(gson.toJson(responseObj), HttpStatus.FOUND);
+    return new ResponseEntity<>(gson.toJson(responseObj), HttpStatus.OK);
   }
 
   /*  @RequestMapping(

@@ -2,8 +2,12 @@ package Reservation.controller;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -17,6 +21,7 @@ import Reservation.service.ReservationService;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +39,7 @@ public class ProjectorControllerTest { // need to be public
 
   private static final Logger logger = Logger.getLogger(ProjectorControllerTest.class.getName());
 
+  // todo
   private MediaType contentType =
       new MediaType(
           MediaType.APPLICATION_FORM_URLENCODED.getType(),
@@ -41,8 +47,6 @@ public class ProjectorControllerTest { // need to be public
           Charset.forName("utf8"));
 
   private List<Projector> projectorList = new ArrayList<>();
-
-  //  private List<Reservation> reservationList = new ArrayList<>();
 
   //  private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
@@ -73,37 +77,49 @@ public class ProjectorControllerTest { // need to be public
 
   @Before
   public void setup() throws Exception {
-    this.projectorRepository.deleteAllInBatch();
+    logger.info("---- setup ----");
     projectorList = new ArrayList<>();
     for (int i = 1; i <= 3; i += 1) {
       Projector projector = new Projector(i);
       projectorList.add(projector);
     }
+    logger.info("---- setup finish ----");
   }
 
   @Test
-  public void shouldInitProjector() throws Exception {
-    //    when(projectorService.batchInsert(projectorList)).thenReturn(7);
+  public void test_save_projector_success() throws Exception {
+    logger.info("---- test save projector success ----");
+    when(projectorService.insert(1)).thenReturn(true);
     this.mockMvc
-        .perform(get("/projector/count"))
+        .perform(post("/projector/new").param("projectorId", "1"))
         .andDo(print())
-        .andExpect(status().isFound())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)); // must be UTF8
-    // here
-    // actual content type = application/json;charset=UTF-8
-    //        .andReturn();
+        .andExpect(status().isCreated())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+    /**
+     * Verify that the findById() method of the ProjectorService is invoked exactly once.
+     */
+    verify(projectorService, times(1)).insert(1);
+    /**
+     * Verify that after the response, no more interactions are made to the ProjectorService
+     */
+    verifyNoMoreInteractions(projectorService);
   }
 
   @Test
-  public void saveProjector() {
+  public void test_save_projector_fail_409_conflict() throws Exception {
+    logger.info("---- test save projector fail 409 conflict ----");
     when(projectorService.insert(1)).thenReturn(false);
-    // todo request parameter
-    //    this.mockMvc
-    //        .perform(get("/projector/new"))
+    this.mockMvc
+        .perform(post("/projector/new").param("projectorId", "1"))
+        .andDo(print())
+        .andExpect(status().isConflict());
+    verify(projectorService, times(1)).insert(1);
+    verifyNoMoreInteractions(projectorService);
   }
 
   @Test
-  public void getAllProjector() throws Exception {
+  public void test_get_all_projector_success() throws Exception {
+    logger.info("---- test get all projector success ----");
     when(projectorService.getAll()).thenReturn(projectorList);
     this.mockMvc
         .perform(get("/projector/all"))
@@ -114,28 +130,56 @@ public class ProjectorControllerTest { // need to be public
         .andExpect(jsonPath("$[0].id", is(1)))
         .andExpect(jsonPath("$[1].id", is(2)))
         .andExpect(jsonPath("$[2].id", is(3)));
+    verify(projectorService, times(1)).getAll();
+    verifyNoMoreInteractions(projectorService);
   }
 
   @Test
-  public void countProjector() {}
-
-  @Test
-  public void getProjector() {}
-  /* @Test
-  public void projectorNotFound() throws Exception {
-    mockMvc.perform(post())
+  public void test_get_all_projector_success_204_no_content() throws Exception {
+    logger.info("---- test get all projector 204 no content ----");
+    when(projectorService.getAll()).thenReturn(null);
+    this.mockMvc.perform(get("/projector/all")).andDo(print()).andExpect(status().isNoContent());
+    verify(projectorService, times(1)).getAll();
+    verifyNoMoreInteractions(projectorService);
   }
 
   @Test
-  public void readSingleReservation() throws Exception {
-    mockMvc.perform(get("/reservation"));
+  public void test_count_projector_success() throws Exception {
+    logger.info("---- test count projector success ----");
+    when(projectorService.count()).thenReturn(7);
+    this.mockMvc
+        .perform(get("/projector/count"))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().json("{'Projector Count':7}")); // do not use '' on int value
+    verify(projectorService, times(1)).count();
+    verifyNoMoreInteractions(projectorService);
   }
 
   @Test
-  public void saveProjector() throws Exception {
+  public void test_get_projector_success() throws Exception {
+    logger.info("---- test get projector success ----");
+    when(projectorService.get(1)).thenReturn(Optional.of(new Projector(1)));
+    this.mockMvc
+        .perform(get("/projector/{pId}", 1))
+        .andDo(print())
+        .andExpect(status().isFound())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(jsonPath("$.id", is(1)));
+    verify(projectorService, times(1)).get(1);
+    verifyNoMoreInteractions(projectorService);
   }
 
   @Test
-  public void getAllProjector() throws Exception {
-  }*/
+  public void test_get_projector_fail_404_not_found() throws Exception {
+    logger.info("---- test get all projector 404 not found ----");
+    when(projectorService.get(1)).thenReturn(Optional.empty());
+    this.mockMvc
+        .perform(get("/projector/{pId}", 1))
+        .andDo(print())
+        .andExpect(status().isNotFound())
+        .andExpect(content().json("{'message':'Projector of id: 1 not found!'}"));
+    verify(projectorService, times(1)).get(1);
+    verifyNoMoreInteractions(projectorService);
+  }
 }
