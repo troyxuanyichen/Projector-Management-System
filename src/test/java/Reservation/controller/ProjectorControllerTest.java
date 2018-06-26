@@ -20,10 +20,10 @@ import Reservation.service.ProjectorService;
 import Reservation.service.ReservationService;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,8 @@ public class ProjectorControllerTest { // need to be public
           MediaType.APPLICATION_FORM_URLENCODED.getSubtype(),
           Charset.forName("utf8"));
 
-  private List<Projector> projectorList = new ArrayList<>();
+  private static List<Projector> projectorList =
+      new ArrayList<>(Arrays.asList(new Projector(1), new Projector(2), new Projector(3)));
 
   //  private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
@@ -56,7 +57,7 @@ public class ProjectorControllerTest { // need to be public
 
   // need to mock reservation because init function in ProjectorManagementSystemApplication.class
   // and projector has list of reservation
-  //todo decouple projector and reservation
+  // todo decouple projector and reservation
 
   @MockBean private ProjectorRepository projectorRepository;
 
@@ -77,7 +78,7 @@ public class ProjectorControllerTest { // need to be public
         this.mappingJackson2HttpMessageConverter);
   }*/
 
-  @Before
+  /*  @Before
   public void setup() {
     logger.info("---- setup ----");
     projectorList = new ArrayList<>();
@@ -86,7 +87,7 @@ public class ProjectorControllerTest { // need to be public
       projectorList.add(projector);
     }
     logger.info("---- setup finish ----");
-  }
+  }*/
 
   @Test
   public void test_save_projector_success() throws Exception {
@@ -97,13 +98,9 @@ public class ProjectorControllerTest { // need to be public
         .andDo(print())
         .andExpect(status().isCreated())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
-    /**
-     * Verify that the findById() method of the ProjectorService is invoked exactly once.
-     */
+    /** Verify that the findById() method of the ProjectorService is invoked exactly once. */
     verify(projectorService, times(1)).insert(1);
-    /**
-     * Verify that after the response, no more interactions are made to the ProjectorService
-     */
+    /** Verify that after the response, no more interactions are made to the ProjectorService */
     verifyNoMoreInteractions(projectorService);
   }
 

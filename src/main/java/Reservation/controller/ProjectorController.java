@@ -2,8 +2,8 @@ package Reservation.controller;
 
 import Reservation.exception.ConflictException;
 import Reservation.model.Projector;
-import Reservation.repository.ReservationRepository;
 import Reservation.service.ProjectorService;
+import Reservation.service.ProjectorServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.util.Collection;
@@ -26,15 +26,12 @@ public class ProjectorController {
 
   private final ProjectorService projectorService;
 
-  private final ReservationRepository reservationRepository;
-
   private static final Gson gson = new Gson();
 
   @Autowired
   public ProjectorController(
-      ProjectorService projectorService, ReservationRepository reservationRepository) {
+      ProjectorService projectorService) {
     this.projectorService = projectorService;
-    this.reservationRepository = reservationRepository;
   }
 
   /**

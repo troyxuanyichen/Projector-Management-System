@@ -14,17 +14,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+
 @SpringBootApplication //add @Configuration(tags the class as a source of bean definitions for the application context), @EnableAutoConfiguration and @ComponentScan
 public class ProjectorManagementSystemApplication {
-
-  @RequestMapping("/")
-  String greeting() {
-    return "Hello World";
-  }
 
   public static void main(String[] args) {
 		SpringApplication.run(ProjectorManagementSystemApplication.class, args);
