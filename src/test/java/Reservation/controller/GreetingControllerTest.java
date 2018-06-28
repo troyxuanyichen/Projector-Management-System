@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
 
-import Reservation.service.GreetingService;
+import Reservation.service.GreetingServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class GreetingControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private GreetingService greetingService;
+  private GreetingServiceImpl greetingService;
 
   //todo
   @Test

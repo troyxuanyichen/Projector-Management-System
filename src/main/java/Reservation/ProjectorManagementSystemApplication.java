@@ -1,22 +1,7 @@
 package Reservation;
 
-import Reservation.model.Projector;
-import Reservation.model.Reservation;
-import Reservation.repository.ProjectorRepository;
-import Reservation.repository.ReservationRepository;
-import Reservation.service.GreetingService;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication //add @Configuration(tags the class as a source of bean definitions for the application context), @EnableAutoConfiguration and @ComponentScan

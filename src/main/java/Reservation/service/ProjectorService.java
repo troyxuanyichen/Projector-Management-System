@@ -18,6 +18,10 @@ public interface ProjectorService {
 
     Optional<Projector> has(Integer projectorId);
 
+    Integer remove(int projectorId);
+
+//    Integer remove(Projector projector);
+
     @Transactional
     public int batchInsert(List<Projector> projectorList);
 }

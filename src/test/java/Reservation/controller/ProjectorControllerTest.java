@@ -34,7 +34,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ProjectorController.class)
+@WebMvcTest(controllers = ProjectorController.class)
 public class ProjectorControllerTest { // need to be public
 
   private static final Logger logger = Logger.getLogger(ProjectorControllerTest.class.getName());
