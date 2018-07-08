@@ -56,14 +56,9 @@ public class ProjectorControllerTest { // need to be public
   @MockBean private ProjectorService projectorService;
 
   // need to mock reservation because init function in ProjectorManagementSystemApplication.class
-  // and projector has list of reservation
   // todo decouple projector and reservation
 
   @MockBean private ProjectorRepository projectorRepository;
-
-  @MockBean private ReservationService reservationService;
-
-  @MockBean private ReservationRepository reservationRepository;
 
   // todo
   /* @Autowired

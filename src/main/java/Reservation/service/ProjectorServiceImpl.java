@@ -76,14 +76,15 @@ public class ProjectorServiceImpl implements ProjectorService {
     return projectorRepository.findById(projectorId);
   }
 
-  /**
-   * Check if the projector exists
-   *
-   * @param projector id of the projector
-   * @return {@code true} if projector exist {@code false} otherwise
-   */
+//  /**
+//   * Check if the projector exists
+//   *
+//   * @param projector id of the projector
+//   * @return {@code true} if projector exist {@code false} otherwise
+//   */
 //  public Optional<Projector> has(Projector projector) {
-//    return projectorRepository.findOne(projector);
+//    projectorRepository.findOne(projector);
+//    return Optional.empty();
 //  }
 
   /**
@@ -103,16 +104,16 @@ public class ProjectorServiceImpl implements ProjectorService {
     }
   }
 
-//  @Override
-//  public Integer remove(Projector projector) {
-//    Optional<Projector> projectorTmp = has(projector);
-//    if (projectorTmp.isPresent()) {
-//      projectorRepository.delete(projector);
-//      return 1;
-//    } else {
-//      return 0;
-//    }
-//  }
+  //  @Override
+  //  public Integer remove(Projector projector) {
+  //    Optional<Projector> projectorTmp = has(projector);
+  //    if (projectorTmp.isPresent()) {
+  //      projectorRepository.delete(projector);
+  //      return 1;
+  //    } else {
+  //      return 0;
+  //    }
+  //  }
 
   /**
    * Get the projector of id projectorId
