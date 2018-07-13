@@ -3,7 +3,6 @@ package Reservation.controller;
 import Reservation.exception.ConflictException;
 import Reservation.model.Projector;
 import Reservation.service.ProjectorService;
-import Reservation.service.ProjectorServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.util.Collection;
@@ -43,7 +42,6 @@ public class ProjectorController {
   @RequestMapping(
       value = "/{pId}",
       method = RequestMethod.GET,
-      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> getProjector(@PathVariable(value = "pId") int projectorId) {
     Optional<Projector> projector = projectorService.get(projectorId);
@@ -59,7 +57,6 @@ public class ProjectorController {
   @RequestMapping(
       value = "/new",
       method = RequestMethod.POST,
-      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> saveProjector(int projectorId) {
     /*
@@ -82,7 +79,6 @@ public class ProjectorController {
   @RequestMapping(
       value = "/all",
       method = RequestMethod.GET,
-      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> getAllProjector() {
     Collection<Projector> projectors = projectorService.getAll();
@@ -103,7 +99,6 @@ public class ProjectorController {
   @RequestMapping(
       value = "/count",
       method = RequestMethod.GET,
-      //      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> countProjector() {
     JsonObject responseObj = new JsonObject();

@@ -2,6 +2,7 @@ package Reservation.controller;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -15,9 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import Reservation.model.Projector;
 import Reservation.repository.ProjectorRepository;
-import Reservation.repository.ReservationRepository;
 import Reservation.service.ProjectorService;
-import Reservation.service.ReservationService;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -46,6 +47,8 @@ public class ProjectorControllerTest { // need to be public
           MediaType.APPLICATION_FORM_URLENCODED.getSubtype(),
           Charset.forName("utf8"));
 
+  private HttpMessageConverter mappingJackson2HttpMessageConverter;
+
   private static List<Projector> projectorList =
       new ArrayList<>(Arrays.asList(new Projector(1), new Projector(2), new Projector(3)));
 
@@ -61,7 +64,7 @@ public class ProjectorControllerTest { // need to be public
   @MockBean private ProjectorRepository projectorRepository;
 
   // todo
-  /* @Autowired
+   @Autowired
   void setConverters(HttpMessageConverter<?>[] converters) {
 
     this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
@@ -71,7 +74,7 @@ public class ProjectorControllerTest { // need to be public
 
     assertNotNull("the JSON message converter must not be null",
         this.mappingJackson2HttpMessageConverter);
-  }*/
+  }
 
   /*  @Before
   public void setup() {
