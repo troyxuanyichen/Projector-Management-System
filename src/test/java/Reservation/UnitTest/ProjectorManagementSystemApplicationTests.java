@@ -1,4 +1,4 @@
-package Reservation;
+package Reservation.UnitTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.Matchers.containsString;

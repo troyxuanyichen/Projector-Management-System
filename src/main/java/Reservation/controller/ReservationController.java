@@ -6,8 +6,6 @@ import Reservation.exception.ConflictException;
 import Reservation.exception.NotFoundException;
 import Reservation.service.ProjectorService;
 import Reservation.service.ReservationService;
-import Reservation.service.ReservationServiceImp;
-import Reservation.service.ProjectorServiceImpl;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Calendar;

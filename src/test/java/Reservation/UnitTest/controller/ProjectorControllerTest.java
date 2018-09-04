@@ -1,4 +1,4 @@
-package Reservation.controller;
+package Reservation.UnitTest.controller;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import Reservation.controller.ProjectorController;
 import Reservation.model.Projector;
 import Reservation.repository.ProjectorRepository;
 import Reservation.service.ProjectorService;

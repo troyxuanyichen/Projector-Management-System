@@ -1,4 +1,4 @@
-package Reservation.controller;
+package Reservation.UnitTest.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
 
+import Reservation.controller.GreetingController;
 import Reservation.service.GreetingServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;

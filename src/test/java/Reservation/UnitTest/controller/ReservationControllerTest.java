@@ -1,8 +1,6 @@
-package Reservation.controller;
+package Reservation.UnitTest.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
-
+import Reservation.controller.ReservationController;
 import Reservation.model.Projector;
 import Reservation.service.ReservationService;
 import com.google.gson.Gson;
